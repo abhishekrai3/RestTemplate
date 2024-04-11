@@ -1,6 +1,7 @@
 package com.example.RestTemplateApplication.service;
 
 
+import com.example.RestTemplateApplication.dto.NewsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,11 +17,12 @@ public class NewsService {
 
     public Object getNews(String countryCode , String apiKey){
 
-        String url= preparedUrl(countryCode, apiKey);
-         return restTemplate.getForObject(url, Object.class);
+        String url= prepareUrl(countryCode, apiKey);
+         NewsResponse response= restTemplate.getForObject(url, NewsResponse.class);
+         return  response;
     }
 
-    private String preparedUrl(String countryCode, String apiKey) {
+    private String prepareUrl(String countryCode, String apiKey) {
     return baseUrl+countryCode+'&'+"apiKey="+apiKey;
 
     }
